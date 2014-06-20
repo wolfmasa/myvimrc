@@ -43,7 +43,7 @@ set whichwrap=b,s,h,l,<,>,[,]
 set nowrapscan
 
 "ウィンドウを最大化して起動
-au GUIEnter * simalt ~x
+"au GUIEnter * simalt ~x
 
 "入力モード時、ステータスラインのカラーを変更
 augroup InsertHook
@@ -66,3 +66,37 @@ au BufNewFile,BufRead *.rb  set nowrap tabstop=2 shiftwidth=2
 "全角スペースを視覚化
 highlight ZenkakuSpace cterm=underline ctermfg=lightblue guibg=#666666
 au BufNewFile,BufRead * match ZenkakuSpace /　/
+
+
+"NeoBundleの設定
+if has('vim_starting')
+      set runtimepath+=~/.vim/bundle/neobundle.vim/
+      endif
+
+      call neobundle#rc(expand('~/.vim/bundle/'))
+
+      " Let NeoBundle manage NeoBundle
+      NeoBundleFetch 'Shougo/neobundle.vim'
+
+      " add plugins
+
+      filetype plugin on
+
+      NeoBundleCheck
+
+"スニペット関連！
+
+" 補完プラグイン
+NeoBundle 'Shougo/neocomplete'
+" スニペット補完プラグイン
+NeoBundle 'Shougo/neosnippet'
+" 各種スニペット
+NeoBundle 'Shougo/neosnippet-snippets'
+
+" Plugin key-mappings.  " <C-k>でsnippetの展開
+imap <C-k> <Plug>(neosnippet_expand_or_jump)
+smap <C-k> <Plug>(neosnippet_expand_or_jump)
+
+" 自分用 snippet ファイルの場所
+let s:my_snippet = '~/snippet/'
+let g:neosnippet#snippets_directory = s:my_snippet
