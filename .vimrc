@@ -120,3 +120,17 @@ let g:neosnippet#enable_snipmate_compatibility = 1
 
 " Tell Neosnippet about the other snippets
 "let g:neosnippet#snippets_directory='~/.vim/bundle/vim-snippets/snippets'
+"
+"ここにあるphp_functionを~/snippetにコピーする
+"http://qiita.com/tekkoc/items/8897cdf378305c4e547d
+"他にも、うまくいかなければNeoSnippetEditで開いて、上記テキストをそのままコ
+"ピーしてしまってもよい
+"
+"NeoBundleについては
+"http://cpplover.blogspot.jp/2013/12/neobundlevim.html
+"にあるとおり、
+"mkdir -p ~/.vim/bundle
+"$ git clone https://github.com/Shougo/neobundle.vim ~/.vim/bundle/neobundle.vim
+"を実行して、vim上で
+":NeoBundleInstall
+"を実行すればよい。
