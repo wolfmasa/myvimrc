@@ -134,3 +134,7 @@ let g:neosnippet#enable_snipmate_compatibility = 1
 "を実行して、vim上で
 ":NeoBundleInstall
 "を実行すればよい。
+"
+set noimdisableactivate
+
+inoremap <silent> jj <ESC>
