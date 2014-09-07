@@ -138,8 +138,10 @@ let g:neosnippet#enable_snipmate_compatibility = 1
 set noimdisableactivate
 
 inoremap <silent> jj <ESC>
-NeoBundle 'fatih/vim-go'
 
+
+"Go 関連
+NeoBundle 'fatih/vim-go'
 
 " for Neobundle {{{
 if has('win32')
@@ -172,7 +174,7 @@ NeoBundleCheck
 
 " for golang {{{
 set path+=$GOPATH/src/**
-let g:gofmt_command = 'goimports'
+"let g:gofmt_command = 'goimports'
 au BufWritePre *.go Fmt
 au BufNewFile,BufRead *.go set sw=4 noexpandtab ts=4 completeopt=menu,preview
 au FileType go compiler go
@@ -236,3 +238,14 @@ let g:tagbar_type_go = {
     \ 'ctagsargs' : '-sort -silent'
 \ }
 " }}}
+" :Fmt などで gofmt の代わりに goimports を使う
+"let g:gofmt_command = 'goimports'
+
+" Go に付属の plugin と gocode を有効にする
+set rtp^=${GOROOT}/misc/vim
+set rtp^=${GOPATH}/src/github.com/nsf/gocode/vim
+
+" 保存時に :Fmt する
+au BufWritePre *.go Fmt
+au BufNewFile,BufRead *.go set sw=4 noexpandtab ts=4
+au FileType go compiler go
