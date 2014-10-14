@@ -138,3 +138,114 @@ let g:neosnippet#enable_snipmate_compatibility = 1
 set noimdisableactivate
 
 inoremap <silent> jj <ESC>
+
+
+"Go 関連
+NeoBundle 'fatih/vim-go'
+
+" for Neobundle {{{
+if has('win32')
+    let s:vim_home=expand('~/vimfiles')
+else
+    let s:vim_home=expand('~/.vim')
+endif
+if has('vim_starting')
+    let &runtimepath.=printf(',%s/bundle/neobundle.vim', s:vim_home)
+endif
+
+set nocompatible
+call neobundle#rc(expand(s:vim_home.'/bundle'))
+
+NeoBundleFetch 'Shougo/neobundle.vim'
+NeoBundle 'majutsushi/tagbar'
+NeoBundle 'Shougo/vimfiler'
+NeoBundle 'Shougo/vimproc'
+NeoBundle 'Shougo/unite.vim'
+NeoBundle 'Shougo/unite-outline'
+NeoBundle 'dgryski/vim-godef'
+
+set rtp^=$GOROOT/misc/vim
+set rtp^=$GOPATH/src/github.com/nsf/gocode/vim
+
+filetype plugin indent on
+syntax on
+NeoBundleCheck
+" }}}
+
+" for golang {{{
+set path+=$GOPATH/src/**
+"let g:gofmt_command = 'goimports'
+au BufWritePre *.go Fmt
+au BufNewFile,BufRead *.go set sw=4 noexpandtab ts=4 completeopt=menu,preview
+au FileType go compiler go
+" }}}
+
+" VimFilerTree {{{
+command! VimFilerTree call VimFilerTree()
+function VimFilerTree()
+    exec ':VimFiler -buffer-name=explorer -split -simple -winwidth=45 -toggle -no-quit'
+    wincmd t
+    setl winfixwidth
+endfunction
+autocmd! FileType vimfiler call g:my_vimfiler_settings()
+function! g:my_vimfiler_settings()
+    nmap     <buffer><expr><CR> vimfiler#smart_cursor_map("\<Plug>(vimfiler_expand_tree)", "\<Plug>(vimfiler_edit_file)")
+    nnoremap <buffer>s          :call vimfiler#mappings#do_action('my_split')<CR>
+    nnoremap <buffer>v          :call vimfiler#mappings#do_action('my_vsplit')<CR>
+endfunction
+
+let my_action = {'is_selectable' : 1}
+function! my_action.func(candidates)
+    wincmd p
+    exec 'split '. a:candidates[0].action__path
+endfunction
+call unite#custom_action('file', 'my_split', my_action)
+
+let my_action = {'is_selectable' : 1}
+function! my_action.func(candidates)
+    wincmd p
+    exec 'vsplit '. a:candidates[0].action__path
+endfunction
+call unite#custom_action('file', 'my_vsplit', my_action)
+" }}}
+~/.vim/ftplugin/go.vim
+" gotags {{{
+let g:tagbar_type_go = {
+    \ 'ctagstype' : 'go',
+    \ 'kinds'     : [
+        \ 'p:package',
+        \ 'i:imports:1',
+        \ 'c:constants',
+        \ 'v:variables',
+        \ 't:types',
+        \ 'n:interfaces',
+        \ 'w:fields',
+        \ 'e:embedded',
+        \ 'm:methods',
+        \ 'r:constructor',
+        \ 'f:functions'
+    \ ],
+    \ 'sro' : '.',
+    \ 'kind2scope' : {
+        \ 't' : 'ctype',
+        \ 'n' : 'ntype'
+    \ },
+    \ 'scope2kind' : {
+        \ 'ctype' : 't',
+        \ 'ntype' : 'n'
+    \ },
+    \ 'ctagsbin'  : 'gotags',
+    \ 'ctagsargs' : '-sort -silent'
+\ }
+" }}}
+" :Fmt などで gofmt の代わりに goimports を使う
+"let g:gofmt_command = 'goimports'
+
+" Go に付属の plugin と gocode を有効にする
+set rtp^=${GOROOT}/misc/vim
+set rtp^=${GOPATH}/src/github.com/nsf/gocode/vim
+
+" 保存時に :Fmt する
+au BufWritePre *.go Fmt
+au BufNewFile,BufRead *.go set sw=4 noexpandtab ts=4
+au FileType go compiler go
