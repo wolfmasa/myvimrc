@@ -255,3 +255,6 @@ exe "set rtp+=".globpath($GOPATH, "src/github.com/nsf/gocode/vim")
 set completeopt=menu,preview
 syntax on
 
+set noswapfile
+set backupdir=~/.vim/tmp
+set nobackup

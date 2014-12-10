@@ -18,3 +18,4 @@ set lines=48
 " カラースキーム
 "----------
 colorscheme murphy
+source ~/.vimrc
