@@ -181,18 +181,18 @@ au FileType go compiler go
 " }}}
 
 " VimFilerTree {{{
-command! VimFilerTree call VimFilerTree()
-function VimFilerTree()
-    exec ':VimFiler -buffer-name=explorer -split -simple -winwidth=45 -toggle -no-quit'
-    wincmd t
-    setl winfixwidth
-endfunction
-autocmd! FileType vimfiler call g:my_vimfiler_settings()
-function! g:my_vimfiler_settings()
-    nmap     <buffer><expr><CR> vimfiler#smart_cursor_map("\<Plug>(vimfiler_expand_tree)", "\<Plug>(vimfiler_edit_file)")
-    nnoremap <buffer>s          :call vimfiler#mappings#do_action('my_split')<CR>
-    nnoremap <buffer>v          :call vimfiler#mappings#do_action('my_vsplit')<CR>
-endfunction
+"command! VimFilerTree call VimFilerTree()
+"function VimFilerTree()
+"    exec ':VimFiler -buffer-name=explorer -split -simple -winwidth=45 -toggle -no-quit'
+"    wincmd t
+"    setl winfixwidth
+"endfunction
+"autocmd! FileType vimfiler call g:my_vimfiler_settings()
+"function! g:my_vimfiler_settings()
+"    nmap     <buffer><expr><CR> vimfiler#smart_cursor_map("\<Plug>(vimfiler_expand_tree)", "\<Plug>(vimfiler_edit_file)")
+"    nnoremap <buffer>s          :call vimfiler#mappings#do_action('my_split')<CR>
+"    nnoremap <buffer>v          :call vimfiler#mappings#do_action('my_vsplit')<CR>
+"endfunction
 
 let my_action = {'is_selectable' : 1}
 function! my_action.func(candidates)
@@ -207,8 +207,8 @@ function! my_action.func(candidates)
     exec 'vsplit '. a:candidates[0].action__path
 endfunction
 call unite#custom_action('file', 'my_vsplit', my_action)
-" }}}
-~/.vim/ftplugin/go.vim
+"}}}
+"~/.vim/ftplugin/go.vim
 " gotags {{{
 let g:tagbar_type_go = {
     \ 'ctagstype' : 'go',
