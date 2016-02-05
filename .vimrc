@@ -138,6 +138,11 @@ let g:neosnippet#enable_snipmate_compatibility = 1
 set noimdisableactivate
 
 inoremap <silent> jj <ESC>
+inoremap ' ''<LEFT>
+inoremap " ""<LEFT>
+inoremap ( ()<LEFT>
+inoremap [ []<LEFT>
+inoremap { {}<LEFT>
 
 
 "Go 関連
@@ -258,3 +263,8 @@ syntax on
 set noswapfile
 set backupdir=~/.vim/tmp
 set nobackup
+
+nnoremap <silent> [b :bprevious<CR>
+nnoremap <silent> ]b :bnext<CR>
+nnoremap <silent> [B :bfirst<CR>
+nnoremap <silent> ]B :blast<CR>
